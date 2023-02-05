@@ -91,7 +91,7 @@ function handleSheet_(sheet, alertSchema, urlInTheEndOfSentence, requireReadConf
     var lastSentDate = plainData[i][COLUMN_INDEX_LAST_SENT_TIME];
     var sentence = richTextData[i][COLUMN_INDEX_SENTENCE];
     const dictionaryUrl = plainData[i][COLUMN_INDEX_URL];
-    if (lastSentDate == '') {
+    if (isBlank(lastSentDate)) {
       lastSentDate = new Date(0);
       sentence = replaceAsteriskWithBold_(sentence);
       sheet.getRange(SHEET_START_ROW + i, COLUMN_INDEX_SENTENCE + 1).setRichTextValue(sentence);

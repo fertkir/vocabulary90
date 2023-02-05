@@ -1,4 +1,11 @@
 // todo add unit test for all functions
+function isEmpty(value) {
+  return typeof value === "undefined" || value === null || value === "";
+}
+
+function isBlank(value) {
+  return isEmpty(value) || value.toString().trim() === "";
+}
 
 // --------------- Set
 
