@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <div id="form" style="display:none;">
+      <input id="sendOnSchedule" type="checkbox" onclick="setTimePickerAccessibility()"> <span id="sendOnScheduleLabel"></span><br>
+      <span id="sendTimeLabel"></span> <input id="sendTime" type="time" min="00:00" max="23:00" step="3600"><br><br>
+      <span id="schemaLabel"></span><br>
+      <input class="schema" id="schema_daily" type="checkbox"> <span id="schemaDailyLabel"></span><br>
+      <input class="schema" id="schema_1_week" type="checkbox"> <span id="schema1WeekLabel"></span><br>
+      <input class="schema" id="schema_2_weeks" type="checkbox"> <span id="schema2WeeksLabel"></span><br>
+      <input class="schema" id="schema_1_month" type="checkbox"> <span id="schema1MonthLabel"></span><br>
+      <input class="schema" id="schema_2_months" type="checkbox"> <span id="schema2MonthsLabel"></span><br><br>
+      <input id="limitAmountOfSentencesToSend" type="checkbox" onclick="setMaxSentencesPickerAccessibility()"> <span id="limitAmountOfSentencesToSendLabel"></span>
+      <input id="maxSentencesToBeSent" type="number" min="0"><br><br>
+      <span id="otherSettingsLabel"></span><br>
+      <input id="customDictionaryUrlInTheEnd" type="checkbox"> <span id="customDictionaryUrlInTheEndLabel"></span><br>
+      <input id="requireReadConfirmation" type="checkbox"> <span id="requireReadConfirmationLabel"></span><br><br>
+      <div id="status" style="display:none;"></div>
+      <button id="saveButton" onclick="save()"><span id="saveLabel"></span></button>
+    </div>
+<script>
+  google.script.run
+    .withSuccessHandler(function(settings) {
+      document.getElementById("sendOnSchedule").checked = settings.enabled;
+      document.getElementById("sendTime").value = settings.time;
+      document.getElementById("schema_daily").checked = settings.schema_daily;
+      document.getElementById("schema_1_week").checked = settings.schema_1_week;
+      document.getElementById("schema_2_weeks").checked = settings.schema_2_weeks;
+      document.getElementById("schema_1_month").checked = settings.schema_1_month;
+      document.getElementById("schema_2_months").checked = settings.schema_2_months;
+      document.getElementById("customDictionaryUrlInTheEnd").checked = settings.customDictionaryUrlInTheEnd;
+      document.getElementById("requireReadConfirmation").checked = settings.requireReadConfirmation;
+      document.getElementById("limitAmountOfSentencesToSend").checked = settings.maxSentencesToBeSent != -1;
+      document.getElementById("maxSentencesToBeSent").value = 
+        (settings.maxSentencesToBeSent == -1 ? 0 : settings.maxSentencesToBeSent);
+      document.getElementById("sendOnScheduleLabel").innerHTML = settings.i18n.sendOnSchedule;
+      document.getElementById("sendTimeLabel").innerHTML = settings.i18n.sendTime;
+      document.getElementById("schemaLabel").innerHTML = settings.i18n.schema;
+      document.getElementById("schemaDailyLabel").innerHTML = settings.i18n.schemaDaily;
+      document.getElementById("schema1WeekLabel").innerHTML = settings.i18n.schema1Week;
+      document.getElementById("schema2WeeksLabel").innerHTML = settings.i18n.schema2Weeks;
+      document.getElementById("schema1MonthLabel").innerHTML = settings.i18n.schema1Month;
+      document.getElementById("schema2MonthsLabel").innerHTML = settings.i18n.schema2Months;
+      document.getElementById("customDictionaryUrlInTheEndLabel").innerHTML = settings.i18n.customDictionaryUrlInTheEnd;
+      document.getElementById("requireReadConfirmationLabel").innerHTML = settings.i18n.requireReadConfirmation;
+      document.getElementById("limitAmountOfSentencesToSendLabel").innerHTML = settings.i18n.limitAmountOfSentencesToSend;
+      document.getElementById("otherSettingsLabel").innerHTML = settings.i18n.otherSettings;
+      document.getElementById("saveLabel").innerHTML = settings.i18n.save;
+      document.getElementById("status").textContent = settings.i18n.saved;
+      setTimePickerAccessibility();
+      setMaxSentencesPickerAccessibility();
+      document.getElementById("form").style = "display:block;";
+    })
+    .getSchedulerSettings();
+
+  function save() {
+      document.getElementById('saveButton').disabled = true;
+      const maxSentencesToBeSentElement = document.getElementById("maxSentencesToBeSent");
+      if (maxSentencesToBeSentElement.value < 0) {
+        maxSentencesToBeSentElement.value = 0;
+      }
+      google.script.run
+        .withSuccessHandler(saveResponseHandler)
+        .save({
+          "enabled": document.getElementById("sendOnSchedule").checked,
+          "sendTime": document.getElementById("sendTime").value,
+          "schema_daily": document.getElementById("schema_daily").checked,
+          "schema_1_week": document.getElementById("schema_1_week").checked,
+          "schema_2_weeks": document.getElementById("schema_2_weeks").checked,
+          "schema_1_month": document.getElementById("schema_1_month").checked,
+          "schema_2_months": document.getElementById("schema_2_months").checked,
+          "customDictionaryUrlInTheEnd": document.getElementById("customDictionaryUrlInTheEnd").checked,
+          "requireReadConfirmation": document.getElementById("requireReadConfirmation").checked,
+          "maxSentencesToBeSent": (document.getElementById("limitAmountOfSentencesToSend").checked 
+            ? maxSentencesToBeSentElement.value : -1)
+        });
+  }
+  
+  function saveResponseHandler() {
+    document.getElementById('saveButton').disabled = false;
+    var status = document.getElementById('status');
+    status.style = "display:block;";
+    setTimeout(function() {
+      status.style = "display:none;";
+    }, 750);
+  }
+  
+  function setTimePickerAccessibility() {
+    var sendOnScheduleChecked = document.getElementById("sendOnSchedule").checked;
+    document.getElementById("sendTime").disabled = !sendOnScheduleChecked;
+    var schemas = document.getElementsByClassName("schema"); 
+    for (var i = 0; i < schemas.length; i++) { 
+      schemas[i].disabled = !sendOnScheduleChecked;
+    }
+  }
+  
+  function setMaxSentencesPickerAccessibility() {
+    const limitAmountOfSentences = document.getElementById("limitAmountOfSentencesToSend").checked;
+    document.getElementById("maxSentencesToBeSent").disabled = !limitAmountOfSentences;
+  }
+</script>
+  </body>
+</html>
