@@ -1,4 +1,6 @@
 # Vocabulary 90
+[По-русски](README_ru.md)
+
 **Vocabulary 90** is an app which makes remembering new vocabulary easier.
 Because it's a lot more efficient than reading word-translation tables, you will decrease your time spent studying and
 increase the amount you learn.
