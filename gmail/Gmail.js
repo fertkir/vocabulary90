@@ -26,14 +26,14 @@ function createWelcomeCard_(locale) {
   return CardService.newCardBuilder()
       .addSection(CardService.newCardSection()
 //          .addWidget(CardService.newImage()
-//              .setImageUrl("https://fertkir.bitbucket.io/vocabulary/spreadsheet-addon/logos-used-by-extension/logo-with-caption2.png"))
+//              .setImageUrl("https://raw.githubusercontent.com/fertkir/vocabulary90/main/logos/logo-with-caption2.png"))
           .addWidget(CardService.newTextParagraph()
               .setText(i18n("openVocabulary90Email", locale))))
      .setFixedFooter(CardService.newFixedFooter()
          .setPrimaryButton(CardService.newTextButton()
              .setText(i18n("extensionWebsite", locale))
              .setOpenLink(CardService.newOpenLink()
-                 .setUrl('https://fertkir.bitbucket.io/vocabulary/spreadsheet-addon/index.html'))))
+                 .setUrl('https://github.com/fertkir/vocabulary90'))))
       .build();
 }
 

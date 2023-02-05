@@ -13,14 +13,15 @@
   "addOns": {
     "common": {
       "name": "Vocabulary 90",
-      "logoUrl": "https://fertkir.bitbucket.io/vocabulary/spreadsheet-addon/logos-used-by-extension/logo-48.png",
+      "logoUrl": "https://raw.githubusercontent.com/fertkir/vocabulary90/main/logos/logo-48.png",
       "useLocaleFromApp": true,
       "homepageTrigger": {
         "runFunction": "onHomepage",
         "enabled": true
       },
       "openLinkUrlPrefixes": [
-        "https://fertkir.bitbucket.io/"
+        "https://github.com/fertkir/",
+        "https://raw.githubusercontent.com/fertkir/"
       ]
     },
     "gmail": {
