@@ -7,7 +7,6 @@ This Terms of Service ("Agreement") is a binding contract between you and Kirill
 ## Warranty Disclaimer
 - The Service is provided on an "as is" and "as available" basis.
 - Use of the Service is at your own risk.
-- Use of the Service is at your own risk.
 - The Service is provided without warranties of any kind.
 - The Developer does not warrant that the Service is accurate, reliable, or correct; that the Service will meet your requirements; that the Service will be available at any particular time or location, uninterrupted; that any errors or defects will be corrected; or that the Service is free of viruses or other harmful components.
 - Any content downloaded or otherwise obtained through the use of the Service is downloaded at your own risk, and you will be solely responsible for any damage to your computer system or loss of data that results from such download or your use of the Service.
